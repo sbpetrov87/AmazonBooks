@@ -1,53 +1,53 @@
 --I identified the authors that had been on the bestsellers list the most
-SELECT Author, COUNT(Author) AS number
-FROM `my-data-project1234-360322.amazon.bestsellers` 
-GROUP BY Author
-ORDER BY number DESC
+  SELECT Author, COUNT(Author) AS number
+    FROM `my-data-project1234-360322.amazon.bestsellers` 
+    GROUP BY Author
+    ORDER BY number DESC
 --I identified the books that had been on the bestsellers list the most
-SELECT Name, Author, COUNT(Name) AS number
-FROM `my-data-project1234-360322.amazon.bestsellers` 
-GROUP BY Name, Author
-ORDER BY number DESC
+  SELECT Name, Author, COUNT(Name) AS number
+    FROM `my-data-project1234-360322.amazon.bestsellers` 
+    GROUP BY Name, Author
+    ORDER BY number DESC
 --I identified if nonfiction or fiction occurred on the bestsellers list more
-SELECT Genre, COUNT(Genre) AS number
-FROM `my-data-project1234-360322.amazon.bestsellers` 
-GROUP BY Genre
-ORDER BY number DESC
+  SELECT Genre, COUNT(Genre) AS number
+    FROM `my-data-project1234-360322.amazon.bestsellers` 
+    GROUP BY Genre
+    ORDER BY number DESC
 --I identified if nonfiction or fiction books receive higher average ratings
-SELECT Genre, AVG(User_Rating) AS Avg_by_genre
-FROM `my-data-project1234-360322.amazon.bestsellers`
-GROUP BY Genre
+  SELECT Genre, AVG(User_Rating) AS Avg_by_genre
+    FROM `my-data-project1234-360322.amazon.bestsellers`
+    GROUP BY Genre
 --I created a table that showed the author and books they wrote only once to be able to create accurate algorithms in the next queries
-CREATE TABLE amazon.no_repeat AS
-SELECT Author, Reviews, Name, User_Rating, Genre
-FROM `my-data-project1234-360322.amazon.bestsellers`
-GROUP BY Author, Reviews, Name, User_Rating, Genre
-ORDER BY Author
+  CREATE TABLE amazon.no_repeat AS
+    SELECT Author, Reviews, Name, User_Rating, Genre
+    FROM `my-data-project1234-360322.amazon.bestsellers`
+    GROUP BY Author, Reviews, Name, User_Rating, Genre
+    ORDER BY Author
 --I identified if nonfiction or fiction books receive higher average ratings
-SELECT Genre, AVG(User_Rating) AS Avg_by_genre
-FROM `my-data-project1234-360322.amazon.no_repeat`
-GROUP BY Genre
+  SELECT Genre, AVG(User_Rating) AS Avg_by_genre
+    FROM `my-data-project1234-360322.amazon.no_repeat`
+    GROUP BY Genre
 --I identified if nonfiction or fiction books received more total number of reviews
-SELECT Genre, SUM(Reviews) AS Total_Reviews
-FROM `my-data-project1234-360322.amazon.no_repeat`
-GROUP BY Genre
+  SELECT Genre, SUM(Reviews) AS Total_Reviews
+    FROM `my-data-project1234-360322.amazon.no_repeat`
+    GROUP BY Genre
 --I identified total reviews for bestseller books and and compared to the number of times on the bestseller list
-SELECT Name, Reviews, COUNT(Name) AS number_of_times_bestseller
-FROM `my-data-project1234-360322.amazon.no_repeat`
-GROUP BY Name, Reviews
-ORDER BY Reviews DESC
+  SELECT Name, Reviews, COUNT(Name) AS number_of_times_bestseller
+    FROM `my-data-project1234-360322.amazon.no_repeat`
+    GROUP BY Name, Reviews
+    ORDER BY Reviews DESC
 --I identified total reviews for bestseller authors and compare to the number of times on the bestseller list by using the SQL code below and copying and pasting into earlier made chart
-SELECT Author, SUM(Reviews) AS Total_Reviews
-FROM `my-data-project1234-360322.amazon.No_Repeats`
-GROUP BY Author
-ORDER BY Total_Reviews DESC
+  SELECT Author, SUM(Reviews) AS Total_Reviews
+    FROM `my-data-project1234-360322.amazon.No_Repeats`
+    GROUP BY Author
+    ORDER BY Total_Reviews DESC
 --I compared average user rating of author with number of times on the bestseller list by using the SQL code below and copying and pasting into earlier made chart
-SELECT Author, AVG(User_Rating) AS Avg_Rating
-FROM `my-data-project1234-360322.amazon.no_repeat`
-GROUP BY Author
-ORDER BY Avg_Rating DESC
+  SELECT Author, AVG(User_Rating) AS Avg_Rating
+    FROM `my-data-project1234-360322.amazon.no_repeat`
+    GROUP BY Author
+    ORDER BY Avg_Rating DESC
 --I compared user rating of book with number of times on the bestseller list
-SELECT Name, User_Rating, COUNT(Name) AS number_of_times_bestseller
-FROM `my-data-project1234-360322.amazon.bestsellers`
-GROUP BY Name, User_Rating
-ORDER BY number_of_times_bestseller DESC
+  SELECT Name, User_Rating, COUNT(Name) AS number_of_times_bestseller
+    FROM `my-data-project1234-360322.amazon.bestsellers`
+    GROUP BY Name, User_Rating
+    ORDER BY number_of_times_bestseller DESC
